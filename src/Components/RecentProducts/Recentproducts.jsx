@@ -5,7 +5,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
-import Products from './../Products/Products';
+import Products from "./../Products/Products";
+import useProducts from "../../Hooks/useProducts";
+
 export default function Recentproducts() {
   let [products, setproducts] = useState([]);
 
@@ -18,35 +20,23 @@ export default function Recentproducts() {
     autoplay: true,
   };
 
-  function getProducts() {
-    axios
-      .get("https://ecommerce.routemisr.com/api/v1/products")
-      .then((res) => {
-        console.log(res.data.data);
-        
-        setproducts(res.data.data);
-      })
-      .catch((res) => {
-        console.log(res.data.data);
-      });
+  let { data, isLoading, isError, error } = useProducts();
+  if (isLoading) {
+    return <div className="spinner"></div>;
   }
-
-  useEffect(() => {
-    getProducts();
-  }, []);
 
   return (
     <>
-      {products.length > 0 ? (
+      {
         <div className="row">
-          {products.map((product) => {
+          {data?.data?.data.map((product) => {
             return (
               <div key={product.id} className="w-1/4">
                 <div className="product  my-2 p-2">
                   <Link
                     to={`productdetails/${product.id}/${product.category.name}`}
                   >
-                  <img src={product?.imageCover} className="w-full" alt="" />
+                    <img src={product?.imageCover} className="w-full" alt="" />
                     <h3 className="text-emerald-500">
                       {product.category.name}
                     </h3>
@@ -68,9 +58,7 @@ export default function Recentproducts() {
             );
           })}
         </div>
-      ) : (
-        <div className="spinner"></div>
-      )}
+      }
     </>
   );
 }
