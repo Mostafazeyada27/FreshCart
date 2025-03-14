@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import Products from "./../Products/Products";
 import { useQuery } from "@tanstack/react-query";
-
+import { useProducts } from "../../hooks/useProducts";
 export default function Recentproducts() {
   let [products, setproducts] = useState([]);
 
@@ -19,14 +19,7 @@ export default function Recentproducts() {
     slidesToScroll: 2,
     autoplay: true,
   };
-
-  function getProducts() {
-    return axios.get("https://ecommerce.routemisr.com/api/v1/products");
-  }
-  let { data, error, isError, isLoading, isFetched } = useQuery({
-    queryKey: ["recentproduct"],
-    queryFn: getProducts,
-  });
+  let { data, isLoading, isError, error } = useProducts();
   if (isLoading) {
     return <div className="spinner"></div>;
   }
