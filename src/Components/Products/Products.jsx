@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 
 import { useContext } from "react";
-import { CartContext } from "./../../context/cartContext";
+// import { CartContext } from "./../../context/cartContext";
 import useProducts from "../../Hooks/useProducts";
 
 export default function Recentproducts() {
