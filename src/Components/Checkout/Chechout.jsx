@@ -1,9 +1,5 @@
 import { useFormik } from "formik";
-import axios from "axios";
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import { useContext } from "react";
-
 import { CartContext } from "../../context/CartContext";
 
 export default function Checkout() {
@@ -30,7 +26,7 @@ export default function Checkout() {
   return (
     <>
       <div className="container w-[75%] mx-auto text-white">
-        <h2 className="font-bold text-2xl text-emerald-600 my-4 ">Log in</h2>
+        <h2 className="font-bold text-2xl text-emerald-600 my-4 ">Checkout</h2>
         <form
           onSubmit={formik.handleSubmit}
           className=" mx-auto p-5  rounded-lg shadow-lg  "
