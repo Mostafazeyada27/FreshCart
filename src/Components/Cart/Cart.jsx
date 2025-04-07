@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../context/CartContext";
+import { Link } from "react-router-dom";
+import Chechout from "./../Checkout/Chechout";
 
 export default function Cart() {
   let [CartDetails, setCartDetails] = useState(null);
@@ -155,6 +157,9 @@ export default function Cart() {
               </tbody>
             </table>
           </div>
+          <Link to={'/Chechout'}>
+            <button className="btn my-2">ChecKout</button>
+          </Link>
         </>
       ) : (
         <h1 className=" text-capitalize text-red-800 text-3xl font-bold ">

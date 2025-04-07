@@ -2,8 +2,8 @@ import logo from "../../assets/freshcart-logo.svg";
 export default function Footer() {
   return (
     <>
-      <div className="fixed bottom-0 right-0 left-0 z-[10]">
-        <footer className="bg-gray-100 py-6 mt-8 ">
+      <div className="fixed bottom-0 right-0 left-0 ">
+        <footer className="bg-gray-100 p-2 ">
           <div className="  mx-auto px-4 text-center">
             <div className="flex  justify-center gap-3 align-item-center mb-2" >
               <img src={logo}  alt="" />

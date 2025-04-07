@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
 import axios from "axios";
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 export let CartContext = createContext();
 export default function CartContextProvider(props) {
+  const [cartid, setcartid] = useState(0);
   let headers = {
     token: localStorage.getItem("token"),
   };
@@ -28,7 +29,10 @@ export default function CartContextProvider(props) {
       .get("https://ecommerce.routemisr.com/api/v1/cart", {
         headers,
       })
-      .then((res) => res)
+      .then((res) => {
+        setcartid(res.data.data._id);
+        return res;
+      })
       .catch((err) => err);
   }
 
@@ -55,6 +59,22 @@ export default function CartContextProvider(props) {
       .then((res) => res)
       .catch((err) => err);
   }
+  function checkout(cartId, url, formData) {
+    return axios.post(
+      `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=${url}`,
+      {
+        shippingaddress: formData,
+      },
+      {
+        headers,
+      }
+    );
+  }
+  useEffect(() => {
+    getLoggedUserCart();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <CartContext.Provider
       value={{
@@ -62,6 +82,8 @@ export default function CartContextProvider(props) {
         addProductToCart,
         getLoggedUserCart,
         deletePrdouct,
+        checkout,
+        cartid,
       }}
     >
       {props.children}

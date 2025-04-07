@@ -16,6 +16,7 @@ import ProductDetails from "./Components/ProductDetails/ProductDetails";
 import { QueryClient, QueryClientProvider } from "react-query";
 import CartContextProvider from "./context/CartContext";
 import { Toaster } from "react-hot-toast";
+import Chechout from "./Components/Checkout/Chechout";
 let query = new QueryClient();
 
 let x = createBrowserRouter([
@@ -76,6 +77,14 @@ let x = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "chechout",
+        element: (
+          <ProtectRoute>
+            <Chechout />
+          </ProtectRoute>
+        ),
       },
       {
         path: "register",
